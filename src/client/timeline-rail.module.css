@@ -1,0 +1,88 @@
+/* Timeline rail: a low-contrast, evenly spaced tick column on the right edge
+ * of the message area, styled after a meeting-notes / editor timeline. */
+
+.rail {
+  position: fixed;
+  z-index: 80;
+  width: 26px;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+}
+
+.track {
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  border-radius: 1px;
+  background: var(--dsw-alias-border-l1, rgba(128, 128, 128, 0.2));
+  opacity: 0.7;
+}
+
+.tick {
+  position: absolute;
+  left: 50%;
+  box-sizing: border-box;
+  width: 12px;
+  height: 2px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 1px;
+  background: var(--dsw-alias-label-tertiary, #888);
+  cursor: pointer;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.12s ease;
+}
+
+.tick:hover,
+.tick:focus-visible {
+  outline: none;
+  background: var(--dsw-alias-brand-primary, #4d6bfe);
+}
+
+.tip {
+  position: absolute;
+  right: calc(100% + 10px);
+  box-sizing: border-box;
+  width: max-content;
+  max-width: min(320px, 46vw);
+  min-width: 170px;
+  background: var(--dsw-alias-bg-overlay, #fff);
+  border: 1px solid var(--dsw-alias-border-l2, rgba(128, 128, 128, 0.3));
+  border-radius: 10px;
+  box-shadow: var(--dsw-shadow-lv2, 0 6px 18px rgba(0, 0, 0, 0.12));
+  padding: 10px 12px;
+  text-align: left;
+  pointer-events: none;
+  word-break: break-word;
+}
+
+.tipTitle {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  line-height: 14px;
+  color: var(--dsw-alias-label-tertiary, rgba(128, 128, 128, 0.8));
+  white-space: nowrap;
+}
+
+.tipText {
+  margin: 0;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--dsw-alias-label-primary, #111);
+  white-space: pre-wrap;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.tipEmpty {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--dsw-alias-label-tertiary, rgba(128, 128, 128, 0.8));
+}
