@@ -4,6 +4,8 @@
 
 在会话消息区右侧、输入框上方,绘制一条**低对比、等间距的短横线刻度列**——每条用户消息一个刻度,风格接近编辑器 / 会议记录阅读器。悬浮刻度预览该条消息,点击把会话跳到这条消息。
 
+> **桌面版与 Web 版均适用。** DeepSeek Harness **桌面版**是一个 Electron 壳,内部用本地 Web 服务服务同一套浏览器客户端,所以"Web 插件"在两者上效果完全一致。本包面向浏览器端会话槽位,**只要跑的是该客户端(桌面版或 Web 版)就能用**;只有 headless / TUI 这类无界面 profile 没有输入槽位、不渲染。
+
 ![screenshot placeholder](docs/screenshot.png)
 
 ## 功能
@@ -22,7 +24,7 @@ DSH 的 Web 界面是一个 Cordis 组合。这个包是**客户端插件**,只�
 
 ## 安装
 
-需要 DeepSeek Harness **Web**(浏览器端)部署。这是纯展示功能,只有存在会话输入框的地方才会渲染。
+需要 DeepSeek Harness 中**带浏览器客户端**的部署——**桌面版(内嵌 Web UI)与 Web 版皆可**。这是纯展示功能,只有存在会话输入框的地方才会渲染。
 
 ```sh
 pnpm add @lcthe/dsh-timeline-rail

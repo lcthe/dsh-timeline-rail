@@ -4,6 +4,8 @@ A **message timeline rail** for the [DeepSeek Harness](https://github.com/deepse
 
 Along the right edge of the conversation, above the composer, it draws a **low-contrast, evenly spaced column of thin tick marks** — one tick per durable user message, styled after a meeting-notes / editor timeline. Hover a tick to preview that message; click it to jump the conversation straight to it.
 
+> **Desktop & Web both supported.** The DeepSeek Harness **desktop** app is an Electron shell that embeds the same browser client served over a localhost web server, so a "web" plugin renders identically on both. This package targets the browser-side conversation slot and works wherever that client runs — Desktop **and** Web. Only headless / TUI profiles have no composer slot and render nothing.
+
 ![screenshot placeholder](docs/screenshot.png)
 
 ## Features
@@ -22,7 +24,7 @@ Positioning is computed against the same stable data attributes the product itse
 
 ## Install
 
-Requires a DeepSeek Harness **web** deployment (the browser client). The rail is pure presentation; it renders only where the conversation composer exists.
+Requires a DeepSeek Harness deployment with the **browser client** — that is the **desktop** app (Web UI embedded) or the **web** version alike. The rail is pure presentation; it renders only where the conversation composer exists.
 
 ```sh
 pnpm add @lcthe/dsh-timeline-rail
