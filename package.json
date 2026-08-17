@@ -1,6 +1,6 @@
 {
   "name": "@lcthe/dsh-timeline-rail",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A message timeline rail for the DeepSeek Harness web chat: evenly spaced tick marks for every user message along the right edge of the conversation, click to jump, hover to preview.",
   "keywords": [
     "deepseek",

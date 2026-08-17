@@ -23,7 +23,7 @@ interface UserMessage {
   readonly hasImage: boolean
 }
 
-const PADDING = 14
+const GAP = 22
 const SCROLL_OFFSET = 16
 
 /** Navigate the scrollport to bring the message row with `key` to the viewport top. */
@@ -114,20 +114,18 @@ export function TimelineRail({ useSession, t }: TimelineRailProps): JSX.Element 
   const railStyle = geometry === null
     ? { top: 0, height: 0, right: 0 }
     : { top: geometry.top, height: geometry.height, right: geometry.right }
-  const tickTop = (index: number): number => PADDING + (count === 1 ? 0.5 : index / (count - 1)) * Math.max(0, geometry!.height - PADDING * 2)
+  // Fixed-gap centered: marks are evenly spaced with GAP px between each,
+  // vertically centered within the message area.
+  const tickTop = (index: number): number => {
+    const totalMarks = (count - 1) * GAP
+    return (geometry!.height - totalMarks) / 2 + index * GAP
+  }
 
   const tip = (() => {
     if (!ready || hover === null || messages[hover] === undefined) return null
     const message = messages[hover]!
     const top = tickTop(hover)
-    const style: React.CSSProperties = { top }
-    if (hover <= 0) style.top = top
-    else if (hover >= count - 1) {
-      style.top = undefined
-      style.bottom = Math.max(0, geometry!.height - top)
-    } else {
-      style.transform = 'translateY(-50%)'
-    }
+    const style: React.CSSProperties = { top, transform: 'translateY(-50%)' }
     return (
       <div className={css.tip} style={style} key="tip">
         <span className={css.tipTitle}>{t('tip.title', { n: hover + 1 })}</span>
