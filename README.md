@@ -1,5 +1,7 @@
 # @lcthe/dsh-timeline-rail
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 A **message timeline rail** for the [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) web chat.
 
 Along the right edge of the conversation, above the composer, it draws a **low-contrast, evenly spaced column of thin tick marks** — one tick per durable user message, styled after a meeting-notes / editor timeline. Hover a tick to preview that message; click it to jump the conversation straight to it.

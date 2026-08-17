@@ -1,5 +1,7 @@
 # @lcthe/dsh-timeline-rail
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 网页会话的 **消息时间轴导航条**。
 
 在会话消息区右侧、输入框上方,绘制一条**低对比、等间距的短横线刻度列**——每条用户消息一个刻度,风格接近编辑器 / 会议记录阅读器。悬浮刻度预览该条消息,点击把会话跳到这条消息。
