@@ -7,13 +7,12 @@
   width: 28px;
   pointer-events: none;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
 .track {
   position: absolute;
-  top: 50px;
+  top: 12px;
   bottom: 12px;
   width: 1px;
   border-radius: 1px;
@@ -21,65 +20,15 @@
   opacity: 0.7;
 }
 
-/* --- Filter bar --- */
-
-.filterBar {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin-bottom: 4px;
+/* Transparent hit area — wider than visible rail, captures mouse for smooth zoom */
+.hitArea {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -16px;
+  right: -16px;
   pointer-events: auto;
-}
-
-.filterBtn {
-  width: 20px;
-  height: 16px;
-  margin: 0;
-  padding: 0;
-  border: none;
-  border-radius: 3px;
-  background: transparent;
-  color: var(--dsw-alias-label-tertiary, #888);
-  font-size: 8px;
-  font-weight: 600;
-  line-height: 16px;
-  text-align: center;
-  cursor: pointer;
-  pointer-events: auto;
-  transition: background 0.12s, color 0.12s;
-}
-
-.filterBtn:hover {
-  background: var(--dsw-alias-interactive-bg-hover, rgba(128,128,128,0.1));
-  color: var(--dsw-alias-label-primary, #111);
-}
-
-.filterActive {
-  background: var(--dsw-alias-brand-primary, #4d6bfe);
-  color: #fff;
-}
-
-/* --- Search input --- */
-
-.searchInput {
-  width: 20px;
-  max-width: 20px;
-  height: 14px;
-  margin: 0 0 4px;
-  padding: 0;
-  border: 1px solid var(--dsw-alias-border-l2, rgba(128,128,128,0.3));
-  border-radius: 3px;
-  background: var(--dsw-alias-bg-base, #fff);
-  color: var(--dsw-alias-label-primary, #111);
-  font-size: 9px;
-  line-height: 14px;
-  text-align: center;
-  pointer-events: auto;
-  box-sizing: border-box;
-  transition: width 0.2s ease, max-width 0.2s ease;
-  /* Expands on focus via CSS — but React controls mount; width is fixed small */
+  z-index: 1;
 }
 
 /* --- Ticks --- */
@@ -96,38 +45,25 @@
   border-radius: 1px;
   cursor: pointer;
   pointer-events: auto;
-  transform: translate(-50%, -50%);
-  transition: background-color 0.12s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  transform-origin: center center;
+  transition: transform 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.12s ease, box-shadow 0.15s ease;
 }
 
-/* Kind-specific colors */
-.tickUser {
+/* Tick — single color, all user messages */
+.tick {
   background: var(--dsw-alias-label-tertiary, #888);
 }
-.tickAssistant {
-  background: var(--dsw-alias-brand-primary, #4d6bfe);
-  opacity: 0.5;
-}
-.tickTool {
-  background: var(--dsw-alias-state-success-primary, #2da44e);
-  opacity: 0.4;
-}
 
-/* Hover zoom */
+/* Hover glow — scale is set via inline style for smooth Gaussian */
 .tick:hover,
 .tick:focus-visible {
   outline: none;
-  transform: translate(-50%, -50%) scale(1.8);
   box-shadow: 0 0 6px rgba(77, 107, 254, 0.3);
 }
-.tickUser:hover { background: var(--dsw-alias-brand-primary, #4d6bfe); }
-.tickAssistant:hover { opacity: 1; }
-.tickTool:hover { opacity: 0.9; }
 
 /* Active = currently visible message */
 .tickActive {
-  background: var(--dsw-alias-brand-primary, #4d6bfe) !important;
-  opacity: 1 !important;
+  background: var(--dsw-alias-label-primary, #111) !important;
   box-shadow: 0 0 4px rgba(77, 107, 254, 0.25);
 }
 
