@@ -4,15 +4,16 @@
 .rail {
   position: fixed;
   z-index: 80;
-  width: 26px;
+  width: 28px;
   pointer-events: none;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .track {
   position: absolute;
-  top: 12px;
+  top: 50px;
   bottom: 12px;
   width: 1px;
   border-radius: 1px;
@@ -20,28 +21,117 @@
   opacity: 0.7;
 }
 
+/* --- Filter bar --- */
+
+.filterBar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 4px;
+  pointer-events: auto;
+}
+
+.filterBtn {
+  width: 20px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--dsw-alias-label-tertiary, #888);
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 16px;
+  text-align: center;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background 0.12s, color 0.12s;
+}
+
+.filterBtn:hover {
+  background: var(--dsw-alias-interactive-bg-hover, rgba(128,128,128,0.1));
+  color: var(--dsw-alias-label-primary, #111);
+}
+
+.filterActive {
+  background: var(--dsw-alias-brand-primary, #4d6bfe);
+  color: #fff;
+}
+
+/* --- Search input --- */
+
+.searchInput {
+  width: 20px;
+  max-width: 20px;
+  height: 14px;
+  margin: 0 0 4px;
+  padding: 0;
+  border: 1px solid var(--dsw-alias-border-l2, rgba(128,128,128,0.3));
+  border-radius: 3px;
+  background: var(--dsw-alias-bg-base, #fff);
+  color: var(--dsw-alias-label-primary, #111);
+  font-size: 9px;
+  line-height: 14px;
+  text-align: center;
+  pointer-events: auto;
+  box-sizing: border-box;
+  transition: width 0.2s ease, max-width 0.2s ease;
+  /* Expands on focus via CSS — but React controls mount; width is fixed small */
+}
+
+/* --- Ticks --- */
+
 .tick {
   position: absolute;
   left: 50%;
   box-sizing: border-box;
-  width: 12px;
+  width: 14px;
   height: 2px;
   margin: 0;
   padding: 0;
   border: none;
   border-radius: 1px;
-  background: var(--dsw-alias-label-tertiary, #888);
   cursor: pointer;
   pointer-events: auto;
   transform: translate(-50%, -50%);
-  transition: background-color 0.12s ease;
+  transition: background-color 0.12s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
+/* Kind-specific colors */
+.tickUser {
+  background: var(--dsw-alias-label-tertiary, #888);
+}
+.tickAssistant {
+  background: var(--dsw-alias-brand-primary, #4d6bfe);
+  opacity: 0.5;
+}
+.tickTool {
+  background: var(--dsw-alias-state-success-primary, #2da44e);
+  opacity: 0.4;
+}
+
+/* Hover zoom */
 .tick:hover,
 .tick:focus-visible {
   outline: none;
-  background: var(--dsw-alias-brand-primary, #4d6bfe);
+  transform: translate(-50%, -50%) scale(1.8);
+  box-shadow: 0 0 6px rgba(77, 107, 254, 0.3);
 }
+.tickUser:hover { background: var(--dsw-alias-brand-primary, #4d6bfe); }
+.tickAssistant:hover { opacity: 1; }
+.tickTool:hover { opacity: 0.9; }
+
+/* Active = currently visible message */
+.tickActive {
+  background: var(--dsw-alias-brand-primary, #4d6bfe) !important;
+  opacity: 1 !important;
+  box-shadow: 0 0 4px rgba(77, 107, 254, 0.25);
+}
+
+/* --- Tooltip --- */
 
 .tip {
   position: absolute;
@@ -58,6 +148,7 @@
   text-align: left;
   pointer-events: none;
   word-break: break-word;
+  z-index: 81;
 }
 
 .tipTitle {
