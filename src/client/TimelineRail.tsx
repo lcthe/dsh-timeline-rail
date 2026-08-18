@@ -186,14 +186,10 @@ export function TimelineRail({ useSession, t }: TimelineRailProps): JSX.Element 
       style={railStyle}
       role="navigation"
       aria-label={t('rail.aria')}
+      onMouseMove={onRailMouseMove}
+      onMouseLeave={onRailMouseLeave}
     >
       <div className={css.track} />
-      {/* Transparent hit area for mouse tracking — wider than visible rail */}
-      <div
-        className={css.hitArea}
-        onMouseMove={onRailMouseMove}
-        onMouseLeave={onRailMouseLeave}
-      />
       {ready && allMessages.map((message, index) => {
         const scale = hoverScale(index, hover)
         const activeClass = activeKey === message.key ? css.tickActive : ''
