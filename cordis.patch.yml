@@ -1,0 +1,4 @@
+# @lcthe/dsh-timeline-rail — message timeline rail plugin
+- insert:
+    - id: dsh-timeline-rail
+      name: '@lcthe/dsh-timeline-rail'

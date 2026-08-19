@@ -1,6 +1,6 @@
 {
   "name": "@lcthe/dsh-timeline-rail",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A message timeline rail for the DeepSeek Harness web chat: evenly spaced tick marks for every user message along the right edge of the conversation, click to jump, hover to preview.",
   "keywords": [
     "deepseek",
@@ -29,7 +29,8 @@
   "files": [
     "lib/index.js",
     "lib/invariant.js",
-    "lib/client.js"
+    "lib/client.js",
+    "cordis.patch.yml"
   ],
   "exports": {
     ".": "./lib/index.js",
@@ -39,6 +40,9 @@
     "./package.json": "./package.json"
   },
   "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
     "client": {
       "inject": [
         "@deepseek-ai/dsh-client-locale",
