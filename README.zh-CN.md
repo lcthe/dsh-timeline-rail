@@ -8,7 +8,7 @@
 
 > **桌面版与 Web 版均适用。** DeepSeek Harness **桌面版**是一个 Electron 壳,内部用本地 Web 服务服务同一套浏览器客户端,所以"Web 插件"在两者上效果完全一致。本包面向浏览器端会话槽位,**只要跑的是该客户端(桌面版或 Web 版)就能用**;只有 headless / TUI 这类无界面 profile 没有输入槽位、不渲染。
 
-![screenshot placeholder](docs/screenshot.png)
+![Timeline Rail Screenshot](assets/images1.png)
 
 ## 功能
 
