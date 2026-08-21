@@ -13,6 +13,7 @@ Along the right edge of the conversation, above the composer, it draws a **low-c
 ## Features
 
 - **Evenly spaced ticks** — one short horizontal line per user message along a 1px track, with a fixed 12px gap; long histories scroll inside the rail instead of compressing the marks.
+- **Centered marks** — each horizontal tick is centered on the vertical rail, keeping the timeline axis visually balanced.
 - **Complete-history loading** — after the session opens, the rail automatically loads earlier history pages in series until no pages remain, and adds ticks as each page arrives.
 - **Click to jump** — aligns the selected user message to the top of the visible message area.
 - **Hover to preview** — a compact wide card shows which message it is (`用户 · 第 N 条`) plus the first lines of its text; image/attachment-only messages get a labelled placeholder.

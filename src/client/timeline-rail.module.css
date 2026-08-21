@@ -34,10 +34,12 @@
   position: absolute;
   top: 12px;
   bottom: 12px;
+  left: 50%;
   width: 1px;
   border-radius: 1px;
   background: var(--dsw-alias-border-l1, rgba(128, 128, 128, 0.2));
   opacity: 0.7;
+  transform: translateX(-50%);
 }
 
 /* --- Ticks --- */
