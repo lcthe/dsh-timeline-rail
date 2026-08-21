@@ -5,9 +5,29 @@
   position: fixed;
   z-index: 80;
   width: 28px;
-  pointer-events: auto;
+  pointer-events: none;
   display: flex;
   justify-content: center;
+}
+
+.viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: visible;
+  pointer-events: auto;
+  scrollbar-width: none;
+}
+
+.viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
 }
 
 .track {
@@ -35,7 +55,8 @@
   cursor: pointer;
   pointer-events: auto;
   transform-origin: center center;
-  transition: transform 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.12s ease, box-shadow 0.15s ease;
+  animation: tickAppear 0.24s ease-out both;
+  transition: top 0.24s ease-out, transform 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.12s ease, box-shadow 0.15s ease;
 }
 
 /* Tick — single color, all user messages */
@@ -56,7 +77,17 @@
   box-shadow: 0 0 4px rgba(77, 107, 254, 0.25);
 }
 
-/* --- Tooltip --- */
+@keyframes tickAppear {
+  from {
+    opacity: 0;
+    scale: 0.55;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
 
 .tip {
   position: absolute;

@@ -12,7 +12,8 @@ Along the right edge of the conversation, above the composer, it draws a **low-c
 
 ## Features
 
-- **Evenly spaced ticks** — one short horizontal line per user message along a 1px track, so a conversation reads as a clean time axis instead of a clamped map.
+- **Evenly spaced ticks** — one short horizontal line per user message along a 1px track, with a fixed 12px gap; long histories scroll inside the rail instead of compressing the marks.
+- **Complete-history loading** — after the session opens, the rail automatically loads earlier history pages in series until no pages remain, and adds ticks as each page arrives.
 - **Click to jump** — aligns the selected user message to the top of the visible message area.
 - **Hover to preview** — a compact wide card shows which message it is (`用户 · 第 N 条`) plus the first lines of its text; image/attachment-only messages get a labelled placeholder.
 - **Theme aware** — colors come from `--dsw-*` tokens, so it follows the light/dark theme with no extra config.
@@ -20,9 +21,9 @@ Along the right edge of the conversation, above the composer, it draws a **low-c
 
 ## How it works
 
-DSH's web GUI is a Cordis composition. This package is a **client plugin** that registers a single entry into the `conversation.input.dock` slot (the additive band above the composer card). It reads the live `ConversationSnapshot` through the slot's `useSession` hook, maps each durable `kind: 'user'` node to a tick, and measures the scrollport (`[data-conversation-scroll]`, `[data-composer-seat]`) to lay the rail out on the right edge. It defines no service and no host-side behavior.
+DSH's web GUI is a Cordis composition. This package is a **client plugin** that registers a single entry into the `conversation.input.dock` slot (the additive band above the composer card). It reads the live `ConversationSnapshot` through the slot's `useSession` hook, maps each durable `kind: 'user'` node to a tick, and measures the scrollport (`[data-conversation-scroll]`, `[data-composer-seat]`) to lay the rail out on the right edge. On mount it uses the scoped conversation service's `loadOlder()` action to fetch earlier pages automatically until the session history is complete; each returned page adds ticks immediately. It defines no new service.
 
-Positioning is computed against the same stable data attributes the product itself uses (`[data-conversation-scroll]`, `[data-chat-flow]`, `[data-chat-anchor-key]`, `[data-composer-seat]`), so the rail stays correct across sidebar collapse, the details panel, theme changes, and live message appends.
+Positioning is computed against the same stable data attributes the product itself uses (`[data-conversation-scroll]`, `[data-chat-flow]`, `[data-chat-anchor-key]`, `[data-composer-seat]`). The rail is constrained to the visible conversation area, and its empty gutter is pointer-transparent so it does not block conversation or Session Log scrolling. Long histories use an independent rail scrollport; scrolling the rail does not scroll the conversation.
 
 ## Install
 
@@ -71,7 +72,7 @@ pnpm run build     # typecheck (tsc) + bundle (tsdown) -> lib/
 ## Known limitations and deferred work
 
 - The rail renders only in the **web** client; headless/TUI profiles have no composer slot, so nothing shows there.
-- Ticks are currently **evenly spaced** (one per user message) rather than reflecting each message's true scroll position; a "minimap" mode that puts each tick at the message's real position is a natural follow-up.
+- Ticks are **evenly spaced** (one per user message) at a fixed 12px gap. Long histories make the rail content independently scrollable rather than compressing the gap; the ticks still do not represent each message's true scroll position. A real-position "minimap" mode is a natural follow-up.
 - Message preview text is clamped to four lines; longer messages are truncated without an affordance to expand in the rail itself (clicking the tick already jumps you to the full message).
 - The plugin targets the slot contract as of the `0.0.1-rc.1` release line of the Harness client packages. If the `conversation.input.dock` contract changes in a later RC, this package may need a bump.
 

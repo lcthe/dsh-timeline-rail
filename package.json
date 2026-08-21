@@ -1,6 +1,6 @@
 {
   "name": "@lcthe/dsh-timeline-rail",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A message timeline rail for the DeepSeek Harness web chat: evenly spaced tick marks for every user message along the right edge of the conversation, click to jump, hover to preview.",
   "keywords": [
     "deepseek",
@@ -55,8 +55,8 @@
   },
   "scripts": {
     "clean": "node -e \"require('node:fs').rmSync('lib',{recursive:true,force:true})\"",
-    "typecheck": "tsc -p tsconfig.build.json --noEmit",
-    "bundle": "tsdown",
+    "typecheck": "tsc -p tsconfig.build.json",
+    "bundle": "tsdown -c tsdown.config.ts",
     "build": "npm run clean && npm run typecheck && npm run bundle",
     "prepublishOnly": "npm run build"
   },

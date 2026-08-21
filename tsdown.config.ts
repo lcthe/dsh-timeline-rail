@@ -121,4 +121,4 @@ function clientConfig(entry: string): UserConfig {
   }
 }
 
-export default defineConfig(() => [libraryConfig(), clientConfig('src/client/index.ts')])
+export default defineConfig([libraryConfig(), clientConfig('src/client/index.ts')])

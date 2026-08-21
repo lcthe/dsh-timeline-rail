@@ -3,6 +3,14 @@
  * convention: Chinese primary, English mirror.
  */
 import type { LocaleDict } from '@deepseek-ai/dsh-client-locale/client'
+import type {} from '@deepseek-ai/dsh-client-ui-slots'
+
+// Register this plugin's namespace at the shared typed locale boundary.
+declare module '@deepseek-ai/dsh-client-ui-slots' {
+  interface LocaleNamespaceMap {
+    'dsh-timeline-rail': TimelineLocaleKey
+  }
+}
 
 export const NS = 'dsh-timeline-rail' as const
 
@@ -28,4 +36,5 @@ export const en: LocaleDict = {
   'rail.aria': 'Message timeline',
 } as const
 
+export type TimelineLocaleKey = keyof typeof zh
 export type TimelNameSpace = typeof NS

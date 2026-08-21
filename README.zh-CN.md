@@ -12,7 +12,8 @@
 
 ## 功能
 
-- **等间距刻度** —— 每条用户消息在 1px 细轨道上对应一条短横线,整段对话读起来是一条干净的时间轴,而不是按位置压缩的地图。
+- **等间距刻度** —— 每条用户消息一个短横线,固定保持 12px 间距;长会话时时间条内部独立滚动,不会压缩横线。
+- **自动补齐历史** —— 会话打开后自动串行加载所有更早历史,每页返回后立即增加对应横线,不需要手动点击“加载更早”。
 - **点击跳转** —— 把选中的用户消息对齐到消息区顶部。
 - **悬浮预览** —— 弹出紧凑宽卡片:显示「用户 · 第 N 条」和消息前几行文本;纯图片 / 附件消息显示对应的占位文案。
 - **跟随主题** —— 颜色全部取自 `--dsw-*` token,深浅色主题自动适配,无需额外配置。
@@ -20,9 +21,9 @@
 
 ## 原理
 
-DSH 的 Web 界面是一个 Cordis 组合。这个包是**客户端插件**,只向 `conversation.input.dock` 槽位(输入框上方那条加法带)注册一个入口:通过槽位提供的 `useSession` hook 读取实时的 `ConversationSnapshot`,把每条 `kind: 'user'` 节点映射成一个刻度,再测量滚动容器(`[data-conversation-scroll]`、`[data-composer-seat]`)把轨道铺到右侧边缘。它不定义任何服务,也没有宿主侧行为。
+DSH 的 Web 界面是一个 Cordis 组合。这个包是**客户端插件**,只向 `conversation.input.dock` 槽位(输入框上方那条加法带)注册一个入口:通过槽位提供的 `useSession` hook 读取实时的 `ConversationSnapshot`,把每条 `kind: 'user'` 节点映射成一个刻度,再测量滚动容器(`[data-conversation-scroll]`、`[data-composer-seat]`)把轨道铺到右侧边缘。挂载后会通过当前会话作用域的 `loadOlder()` 自动拉取更早历史,直到完整会话加载完成;每页返回后立即增加对应横线。不定义新服务。
 
-定位使用的正是产品自身的那组稳定 data 属性(`[data-conversation-scroll]`、`[data-chat-flow]`、`[data-chat-anchor-key]`、`[data-composer-seat]`),所以在折叠侧栏、打开详情列、切换主题、新消息追加时都能保持正确。
+定位使用的正是产品自身的那组稳定 data 属性(`[data-conversation-scroll]`、`[data-chat-flow]`、`[data-chat-anchor-key]`、`[data-composer-seat]`)。时间条会限制在可见对话区域内,轨道空白区域透传鼠标事件,不会阻挡对话区或 Session Log 滚动;长会话使用时间条自己的独立滚动区,滚动时间条不会滚动对话。
 
 ## 安装
 
@@ -71,7 +72,7 @@ pnpm run build     # typecheck(tsc)+ bundle(tsdown)-> lib/
 ## 已知限制与后续计划
 
 - 只在 **Web** 客户端渲染;headless / TUI profile 没有输入槽位,因此不显示。
-- 目前刻度是**等间距**(每条用户消息一个),不反映消息的真实滚动位置;"minimap 模式"(刻度对应真实位置)是自然的后续增强。
+- 目前刻度仍是**固定 12px 等间距**(每条用户消息一个),长会话会让时间条内容独立滚动,不会压缩横线间距;不反映消息的真实滚动位置;"minimap 模式"(刻度对应真实位置)是自然的后续增强。
 - 预览文本最多显示 4 行,更长的消息会被截断,且在时间轴内没有就地展开的入口(点击刻度已能跳到完整消息)。
 - 插件面向 Harness 客户端 `0.0.1-rc.1` 发布线的槽位契约;如果后续 RC 里 `conversation.input.dock` 契约变化,本包可能需要跟随升级。
 
